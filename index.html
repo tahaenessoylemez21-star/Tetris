@@ -14,14 +14,7 @@
   .grid-bg{position:fixed;inset:0;background-image:linear-gradient(rgba(0,245,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,0.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;}
 
   /* TOP BAR */
-  #top-bar{
-    flex-shrink:0;
-    display:flex;align-items:center;justify-content:space-between;
-    padding:5px 10px;
-    background:rgba(0,0,0,0.5);
-    border-bottom:1px solid rgba(0,245,255,0.1);
-    z-index:10;position:relative;
-  }
+  #top-bar{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:5px 10px;background:rgba(0,0,0,0.6);border-bottom:1px solid rgba(0,245,255,0.1);z-index:10;position:relative;height:40px;}
   .top-title{font-family:'Orbitron',monospace;font-weight:900;font-size:clamp(0.6rem,3vw,0.9rem);letter-spacing:0.2em;color:var(--cyan);text-shadow:0 0 10px var(--cyan);animation:flicker 4s infinite;}
   @keyframes flicker{0%,95%,100%{opacity:1}96%{opacity:.8}98%{opacity:.6}}
   .top-stats{display:flex;gap:10px;}
@@ -33,74 +26,64 @@
   .stat-val.g{color:var(--green);text-shadow:0 0 6px var(--green);}
   .music-btn{background:var(--panel);border:1px solid rgba(0,245,255,0.2);color:var(--cyan);font-family:'Press Start 2P',monospace;font-size:0.28rem;padding:4px 6px;border-radius:3px;cursor:pointer;}
 
-  /* MIDDLE ROW: canvas + right panel */
-  #middle{
-    flex:1;
-    display:flex;
-    min-height:0;
-    position:relative;
-    z-index:10;
-    padding:4px;
-    gap:4px;
-  }
+  /* GAME ROW — canvas solda, sağda küçük panel */
+  #game-row{flex:1;display:flex;min-height:0;position:relative;z-index:10;}
 
-  /* CANVAS WRAP */
-  #canvas-wrap{
-    position:relative;
-    flex-shrink:0;
-  }
-  #game-canvas{display:block;border:1px solid rgba(0,245,255,0.2);box-shadow:0 0 16px rgba(0,245,255,0.08);image-rendering:pixelated;}
+  /* CANVAS */
+  #canvas-wrap{position:relative;flex-shrink:0;}
+  #game-canvas{display:block;border-right:1px solid rgba(0,245,255,0.15);image-rendering:pixelated;}
   #particle-canvas{position:absolute;top:0;left:0;pointer-events:none;z-index:10;}
 
-  /* RIGHT PANEL */
-  #right-panel{
-    display:flex;flex-direction:column;gap:4px;
-    flex:1;min-width:0;
+  /* SAĞ MİNİ PANEL — sadece sonraki parça */
+  #side-panel{
+    display:flex;flex-direction:column;align-items:center;
+    padding:6px 4px;gap:6px;
+    background:rgba(0,0,0,0.3);
+    border-left:1px solid rgba(0,245,255,0.08);
+    flex-shrink:0;
   }
-  .panel-box{background:var(--panel);border:1px solid var(--border);border-radius:4px;padding:5px;text-align:center;}
-  .panel-label{font-size:0.24rem;color:var(--dim);margin-bottom:3px;}
-  #next-canvas{display:block;margin:0 auto;}
+  .panel-label{font-size:0.22rem;color:var(--dim);letter-spacing:0.06em;margin-bottom:2px;}
+  #next-canvas{display:block;}
 
-  /* TOUCH BUTTONS */
-  #touch-controls{
+  /* BOTTOM TOUCH CONTROLS */
+  #bottom-controls{
+    flex-shrink:0;
     display:none;
     flex-direction:column;
-    gap:4px;
-    margin-top:auto;
+    gap:5px;
+    padding:6px 8px;
+    background:rgba(0,0,0,0.5);
+    border-top:1px solid rgba(0,245,255,0.08);
+    z-index:10;position:relative;
   }
-  .touch-row{display:flex;gap:4px;}
+  .touch-row{display:flex;gap:5px;justify-content:center;}
   .btn{
-    background:rgba(0,245,255,0.08);
-    border:2px solid rgba(0,245,255,0.4);
-    color:var(--cyan);
-    font-family:'Press Start 2P',monospace;
+    background:rgba(0,245,255,0.08);border:2px solid rgba(0,245,255,0.4);
+    color:var(--cyan);font-family:'Press Start 2P',monospace;
     font-size:clamp(0.5rem,3vw,0.7rem);
-    border-radius:8px;cursor:pointer;
-    user-select:none;-webkit-user-select:none;
-    touch-action:manipulation;
-    flex:1;
-    display:flex;align-items:center;justify-content:center;
-    height:48px;
-    transition:background 0.08s,transform 0.08s;
+    border-radius:10px;cursor:pointer;
+    user-select:none;-webkit-user-select:none;touch-action:manipulation;
+    flex:1;display:flex;align-items:center;justify-content:center;
+    height:52px;transition:background 0.08s,transform 0.08s;
+    max-width:120px;
   }
   .btn:active{background:rgba(0,245,255,0.25);transform:scale(0.93);}
-  .btn-rotate{background:rgba(255,0,110,0.1);border-color:rgba(255,0,110,0.5);color:var(--pink);}
+  .btn-rotate{background:rgba(255,0,110,0.1);border-color:rgba(255,0,110,0.5);color:var(--pink);max-width:180px;}
   .btn-rotate:active{background:rgba(255,0,110,0.3);}
   .btn-down{background:rgba(0,255,136,0.08);border-color:rgba(0,255,136,0.4);color:var(--green);}
   .btn-down:active{background:rgba(0,255,136,0.25);}
 
   /* OVERLAY */
-  .overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,0.88);z-index:50;gap:8px;backdrop-filter:blur(3px);padding:10px;overflow-y:auto;}
+  .overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,0.9);z-index:50;gap:8px;backdrop-filter:blur(3px);padding:12px;overflow-y:auto;}
   .overlay h2{font-family:'Orbitron',monospace;font-size:clamp(0.75rem,3vw,1.1rem);color:var(--pink);text-shadow:0 0 16px var(--pink);text-align:center;}
   .overlay p{font-size:0.3rem;color:var(--dim);text-align:center;line-height:2.2;}
-  .score-display{font-size:0.8rem;color:var(--yellow);text-shadow:0 0 10px var(--yellow);}
-  .hi-badge{font-size:0.32rem;color:var(--pink);animation:pulse-b 1s infinite;}
-  @keyframes pulse-b{0%,100%{opacity:1}50%{opacity:.5}}
-  .start-btn{background:transparent;border:2px solid var(--cyan);color:var(--cyan);font-family:'Press Start 2P',monospace;font-size:0.48rem;padding:10px 16px;cursor:pointer;letter-spacing:0.12em;text-shadow:0 0 10px var(--cyan);border-radius:2px;animation:pb 2s infinite;}
-  @keyframes pb{0%,100%{box-shadow:0 0 8px rgba(0,245,255,0.2)}50%{box-shadow:0 0 24px rgba(0,245,255,0.5)}}
+  .score-display{font-size:0.85rem;color:var(--yellow);text-shadow:0 0 10px var(--yellow);}
+  .hi-badge{font-size:0.32rem;color:var(--pink);animation:pb 1s infinite;}
+  @keyframes pb{0%,100%{opacity:1}50%{opacity:.5}}
+  .start-btn{background:transparent;border:2px solid var(--cyan);color:var(--cyan);font-family:'Press Start 2P',monospace;font-size:0.48rem;padding:10px 16px;cursor:pointer;letter-spacing:0.12em;text-shadow:0 0 10px var(--cyan);border-radius:2px;animation:pbb 2s infinite;}
+  @keyframes pbb{0%,100%{box-shadow:0 0 8px rgba(0,245,255,0.2)}50%{box-shadow:0 0 24px rgba(0,245,255,0.5)}}
   .start-btn:hover{background:rgba(0,245,255,0.1);}
-
-  .lb-box{width:100%;max-width:240px;background:rgba(0,245,255,0.05);border:1px solid rgba(0,245,255,0.15);border-radius:4px;padding:6px;}
+  .lb-box{width:100%;max-width:250px;background:rgba(0,245,255,0.05);border:1px solid rgba(0,245,255,0.15);border-radius:4px;padding:6px;}
   .lb-title{font-size:0.26rem;color:var(--yellow);text-align:center;margin-bottom:5px;}
   .lb-row{display:flex;justify-content:space-between;align-items:center;padding:3px 5px;margin-bottom:2px;background:rgba(255,255,255,0.03);border-radius:2px;gap:3px;}
   .lb-rank{font-size:0.22rem;min-width:14px;color:var(--dim);}
@@ -110,10 +93,10 @@
   .lb-name{font-size:0.22rem;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
   .lb-sc{font-size:0.22rem;color:var(--cyan);}
   .lb-empty{font-size:0.22rem;color:var(--dim);text-align:center;padding:4px;}
-  .name-input{background:rgba(0,245,255,0.08);border:1px solid rgba(0,245,255,0.4);color:var(--cyan);font-family:'Press Start 2P',monospace;font-size:0.38rem;padding:7px 10px;border-radius:3px;text-align:center;width:100%;max-width:190px;outline:none;}
+  .name-input{background:rgba(0,245,255,0.08);border:1px solid rgba(0,245,255,0.4);color:var(--cyan);font-family:'Press Start 2P',monospace;font-size:0.38rem;padding:7px 10px;border-radius:3px;text-align:center;width:100%;max-width:200px;outline:none;}
   .name-input::placeholder{color:var(--dim);}
   .save-row{display:flex;gap:6px;margin-top:4px;}
-  .save-btn{background:transparent;border:1px solid var(--cyan);color:var(--cyan);font-family:'Press Start 2P',monospace;font-size:0.34rem;padding:7px 10px;cursor:pointer;border-radius:2px;flex:1;}
+  .save-btn{background:transparent;border:1px solid var(--cyan);color:var(--cyan);font-family:'Press Start 2P',monospace;font-size:0.32rem;padding:7px 10px;cursor:pointer;border-radius:2px;flex:1;}
   .save-btn.dim{border-color:var(--dim);color:var(--dim);}
 </style>
 </head>
@@ -132,8 +115,8 @@
   <button class="music-btn" id="music-btn">🔊</button>
 </div>
 
-<!-- MIDDLE -->
-<div id="middle">
+<!-- GAME ROW -->
+<div id="game-row">
   <!-- CANVAS -->
   <div id="canvas-wrap">
     <canvas id="game-canvas"></canvas>
@@ -158,32 +141,27 @@
       <button class="start-btn" id="restart-btn">TEKRAR</button>
     </div>
     <!-- Duraklat -->
-    <div class="overlay" id="pause-overlay" style="display:none;">
-      <h2>DURAKLATILDI</h2>
-      <p>P tuşuna bas</p>
-    </div>
+    <div class="overlay" id="pause-overlay" style="display:none;"><h2>DURAKLATILDI</h2><p>P tuşuna bas</p></div>
   </div>
 
-  <!-- SAĞ PANEL -->
-  <div id="right-panel">
-    <div class="panel-box">
+  <!-- SAĞ MİNİ PANEL -->
+  <div id="side-panel">
+    <div>
       <div class="panel-label">SONRAKI</div>
-      <canvas id="next-canvas" width="56" height="56"></canvas>
+      <canvas id="next-canvas" width="64" height="64"></canvas>
     </div>
-    <div class="panel-box">
-      <div class="panel-label" style="font-size:0.2rem;line-height:2;">←→ HAR.<br>↑ DÖN.<br>↓ HIZLI<br>SPC DÜŞÜR<br>P DURAKLAT</div>
-    </div>
-    <!-- TOUCH BUTONLAR -->
-    <div id="touch-controls">
-      <div class="touch-row">
-        <button class="btn btn-rotate" id="btn-rotate">↻ DÖN</button>
-      </div>
-      <div class="touch-row">
-        <button class="btn" id="btn-left">◀</button>
-        <button class="btn btn-down" id="btn-down">▼</button>
-        <button class="btn" id="btn-right">▶</button>
-      </div>
-    </div>
+  </div>
+</div>
+
+<!-- BOTTOM CONTROLS -->
+<div id="bottom-controls">
+  <div class="touch-row">
+    <button class="btn btn-rotate" id="btn-rotate">↻ DÖNDÜR</button>
+  </div>
+  <div class="touch-row">
+    <button class="btn" id="btn-left">◀ SOL</button>
+    <button class="btn btn-down" id="btn-down">▼ HIZLI</button>
+    <button class="btn" id="btn-right">SAĞ ▶</button>
   </div>
 </div>
 
@@ -224,17 +202,10 @@ const NOTE_FREQ={'A4':440,'B4':493.88,'C5':523.25,'D5':587.33,'E5':659.25,'F5':6
 const BPM=160,BEAT=60/BPM;
 function playMusic(){
   if(!musicOn)return;const ac=getAudio();stopMusic();
-  let t=ac.currentTime+0.05;
-  const mg=ac.createGain();mg.gain.setValueAtTime(0.18,t);mg.connect(ac.destination);musicNodes.push(mg);
+  let t=ac.currentTime+0.05;const mg=ac.createGain();mg.gain.setValueAtTime(0.18,t);mg.connect(ac.destination);musicNodes.push(mg);
   function sl(){
     if(!musicOn)return;const ls=t;
-    THEME.forEach(([note,dur])=>{
-      const freq=NOTE_FREQ[note];if(!freq){t+=dur*BEAT*4;return;}
-      const osc=ac.createOscillator();osc.type='square';osc.frequency.setValueAtTime(freq,t);
-      const env=ac.createGain();env.gain.setValueAtTime(0,t);env.gain.linearRampToValueAtTime(0.6,t+0.01);
-      env.gain.setValueAtTime(0.6,t+dur*BEAT*4*0.7);env.gain.linearRampToValueAtTime(0,t+dur*BEAT*4*0.95);
-      osc.connect(env);env.connect(mg);osc.start(t);osc.stop(t+dur*BEAT*4);musicNodes.push(osc,env);t+=dur*BEAT*4;
-    });
+    THEME.forEach(([note,dur])=>{const freq=NOTE_FREQ[note];if(!freq){t+=dur*BEAT*4;return;}const osc=ac.createOscillator();osc.type='square';osc.frequency.setValueAtTime(freq,t);const env=ac.createGain();env.gain.setValueAtTime(0,t);env.gain.linearRampToValueAtTime(0.6,t+0.01);env.gain.setValueAtTime(0.6,t+dur*BEAT*4*0.7);env.gain.linearRampToValueAtTime(0,t+dur*BEAT*4*0.95);osc.connect(env);env.connect(mg);osc.start(t);osc.stop(t+dur*BEAT*4);musicNodes.push(osc,env);t+=dur*BEAT*4;});
     scheduleTimer=setTimeout(sl,(t-ls-1)*1000);
   }sl();
 }
@@ -254,12 +225,7 @@ const pCanvas=document.getElementById('particle-canvas');
 const pCtx=pCanvas.getContext('2d');
 let particles=[];
 function spawnRowParticles(rows,bs){
-  rows.forEach(r=>{
-    for(let c=0;c<COLS;c++){
-      const color=board[r][c]||'#fff';const cx=(c+.5)*bs,cy=(r+.5)*bs;
-      for(let i=0;i<14;i++){const a=(Math.PI*2/14)*i+Math.random()*.3,sp=2+Math.random()*4;particles.push({x:cx,y:cy,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-1,life:1,decay:.03+Math.random()*.03,size:2+Math.random()*4,color,glow:color,type:Math.random()>.5?'square':'circle'});}
-    }
-  });
+  rows.forEach(r=>{for(let c=0;c<COLS;c++){const color=board[r][c]||'#fff';const cx=(c+.5)*bs,cy=(r+.5)*bs;for(let i=0;i<14;i++){const a=(Math.PI*2/14)*i+Math.random()*.3,sp=2+Math.random()*4;particles.push({x:cx,y:cy,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-1,life:1,decay:.03+Math.random()*.03,size:2+Math.random()*4,color,glow:color,type:Math.random()>.5?'square':'circle'});}}});
 }
 function updateParticles(){
   pCtx.clearRect(0,0,pCanvas.width,pCanvas.height);particles=particles.filter(p=>p.life>0);
@@ -267,33 +233,35 @@ function updateParticles(){
   pCtx.globalAlpha=1;pCtx.shadowBlur=0;
 }
 
-// BLOCK BOYUTU — JS ile hesapla
+// BOYUTLAR
 const COLS=10,ROWS=20;
 const isMobile='ontouchstart'in window;
-
-// Ekran boyutlarını al
-const SW=window.innerWidth;
-const SH=window.innerHeight;
-const topH=40; // top bar
-const rightW=isMobile?100:110; // sağ panel
-const pad=8;
-// Mevcut alan
-const canvasMaxW=SW-rightW-pad*3;
-const canvasMaxH=SH-topH-pad*2;
-const bByW=Math.floor(canvasMaxW/COLS);
-const bByH=Math.floor(canvasMaxH/ROWS);
-const BLOCK=Math.max(14,Math.min(bByW,bByH,30));
+const SW=window.innerWidth,SH=window.innerHeight;
+const topH=40;
+const btnH=isMobile?116:0; // iki satır buton
+const sideW=80; // sonraki parça paneli
+const availH=SH-topH-btnH-4;
+const availW=SW-sideW-2;
+const BLOCK=Math.max(14,Math.min(Math.floor(availH/ROWS),Math.floor(availW/COLS),34));
+const canvasW=COLS*BLOCK;
+const canvasH=ROWS*BLOCK;
 
 const canvas=document.getElementById('game-canvas');
-canvas.width=COLS*BLOCK;canvas.height=ROWS*BLOCK;
+canvas.width=canvasW;canvas.height=canvasH;
+canvas.style.width=canvasW+'px';canvas.style.height=canvasH+'px';
 const ctx=canvas.getContext('2d');
-pCanvas.width=canvas.width;pCanvas.height=canvas.height;
+pCanvas.width=canvasW;pCanvas.height=canvasH;
+
+// Sağ panel genişliği = kalan alan
+const actualSideW=SW-canvasW-2;
+document.getElementById('side-panel').style.width=actualSideW+'px';
+document.getElementById('side-panel').style.minWidth=actualSideW+'px';
+
 const nextCanvas=document.getElementById('next-canvas');
 const nextCtx=nextCanvas.getContext('2d');
-
-// Sağ paneli canvas yüksekliğine göre ayarla
-document.getElementById('right-panel').style.height=canvas.height+'px';
-document.getElementById('right-panel').style.width=rightW+'px';
+// Next canvas boyutunu ayarla
+const ncSize=Math.min(actualSideW-12,80);
+nextCanvas.width=ncSize;nextCanvas.height=ncSize;
 
 const PIECES=[
   {shape:[[1,1,1,1]],color:'#00f5ff',glow:'#00f5ff'},
@@ -314,30 +282,14 @@ function createBoard(){return Array.from({length:ROWS},()=>Array(COLS).fill(null
 function randomPiece(){const p=PIECES[Math.floor(Math.random()*PIECES.length)];return{shape:p.shape.map(r=>[...r]),color:p.color,glow:p.glow,x:Math.floor((COLS-p.shape[0].length)/2),y:0};}
 function rotate(shape){return shape[0].map((_,i)=>shape.map(r=>r[i])).reverse();}
 function valid(shape,ox,oy){for(let r=0;r<shape.length;r++)for(let c=0;c<shape[r].length;c++){if(!shape[r][c])continue;const nx=ox+c,ny=oy+r;if(nx<0||nx>=COLS||ny>=ROWS)return false;if(ny>=0&&board[ny][nx])return false;}return true;}
-function place(){
-  for(let r=0;r<current.shape.length;r++)for(let c=0;c<current.shape[r].length;c++){if(!current.shape[r][c])continue;const ny=current.y+r;if(ny<0){endGame();return;}board[ny][current.x+c]=current.color;}
-  sfx('land');clearLines();current=next;next=randomPiece();
-  if(!valid(current.shape,current.x,current.y)){endGame();return;}drawNext();
-}
+function place(){for(let r=0;r<current.shape.length;r++)for(let c=0;c<current.shape[r].length;c++){if(!current.shape[r][c])continue;const ny=current.y+r;if(ny<0){endGame();return;}board[ny][current.x+c]=current.color;}sfx('land');clearLines();current=next;next=randomPiece();if(!valid(current.shape,current.x,current.y)){endGame();return;}drawNext();}
 function clearLines(){
   const full=[];for(let r=ROWS-1;r>=0;r--)if(board[r].every(c=>c!==null))full.push(r);
   if(!full.length)return;sfx('clear');spawnRowParticles(full,BLOCK);flashRows=[...full];
-  setTimeout(()=>{
-    full.sort((a,b)=>b-a);for(const r of full)board.splice(r,1);for(let i=0;i<full.length;i++)board.unshift(Array(COLS).fill(null));
-    flashRows=[];const pts=[0,100,300,500,800];score+=(pts[full.length]||800)*level;lines+=full.length;level=Math.floor(lines/10)+1;dropInterval=Math.max(80,800-(level-1)*70);
-    document.getElementById('score-display').textContent=score;document.getElementById('level-display').textContent=level;document.getElementById('lines-display').textContent=lines;
-  },200);
+  setTimeout(()=>{full.sort((a,b)=>b-a);for(const r of full)board.splice(r,1);for(let i=0;i<full.length;i++)board.unshift(Array(COLS).fill(null));flashRows=[];const pts=[0,100,300,500,800];score+=(pts[full.length]||800)*level;lines+=full.length;level=Math.floor(lines/10)+1;dropInterval=Math.max(80,800-(level-1)*70);document.getElementById('score-display').textContent=score;document.getElementById('level-display').textContent=level;document.getElementById('lines-display').textContent=lines;},200);
 }
-function drawBlock(c,r,color,glow,context,size){
-  const x=c*size,y=r*size,s=size;
-  context.shadowColor=glow||color;context.shadowBlur=12;context.fillStyle=color;context.fillRect(x+1,y+1,s-2,s-2);context.shadowBlur=0;
-  const grad=context.createLinearGradient(x,y,x+s,y+s);grad.addColorStop(0,'rgba(255,255,255,0.28)');grad.addColorStop(1,'rgba(0,0,0,0.22)');
-  context.fillStyle=grad;context.fillRect(x+1,y+1,s-2,s-2);context.strokeStyle='rgba(255,255,255,0.18)';context.lineWidth=1;context.strokeRect(x+1.5,y+1.5,s-3,s-3);
-}
-function drawGhost(){
-  let gy=current.y;while(valid(current.shape,current.x,gy+1))gy++;if(gy===current.y)return;
-  ctx.globalAlpha=0.15;for(let r=0;r<current.shape.length;r++)for(let c=0;c<current.shape[r].length;c++){if(!current.shape[r][c])continue;ctx.fillStyle=current.color;ctx.fillRect((current.x+c)*BLOCK+1,(gy+r)*BLOCK+1,BLOCK-2,BLOCK-2);}ctx.globalAlpha=1;
-}
+function drawBlock(c,r,color,glow,context,size){const x=c*size,y=r*size,s=size;context.shadowColor=glow||color;context.shadowBlur=12;context.fillStyle=color;context.fillRect(x+1,y+1,s-2,s-2);context.shadowBlur=0;const grad=context.createLinearGradient(x,y,x+s,y+s);grad.addColorStop(0,'rgba(255,255,255,0.28)');grad.addColorStop(1,'rgba(0,0,0,0.22)');context.fillStyle=grad;context.fillRect(x+1,y+1,s-2,s-2);context.strokeStyle='rgba(255,255,255,0.18)';context.lineWidth=1;context.strokeRect(x+1.5,y+1.5,s-3,s-3);}
+function drawGhost(){let gy=current.y;while(valid(current.shape,current.x,gy+1))gy++;if(gy===current.y)return;ctx.globalAlpha=0.15;for(let r=0;r<current.shape.length;r++)for(let c=0;c<current.shape[r].length;c++){if(!current.shape[r][c])continue;ctx.fillStyle=current.color;ctx.fillRect((current.x+c)*BLOCK+1,(gy+r)*BLOCK+1,BLOCK-2,BLOCK-2);}ctx.globalAlpha=1;}
 function draw(){
   ctx.fillStyle='#060610';ctx.fillRect(0,0,canvas.width,canvas.height);
   ctx.strokeStyle='rgba(0,245,255,0.04)';ctx.lineWidth=0.5;
@@ -349,20 +301,18 @@ function draw(){
   updateParticles();
 }
 function drawNext(){
-  const s=next.shape,bs=11;nextCtx.clearRect(0,0,nextCanvas.width,nextCanvas.height);nextCtx.fillStyle='#060610';nextCtx.fillRect(0,0,nextCanvas.width,nextCanvas.height);
+  const s=next.shape,bs=Math.floor(ncSize/5);
+  nextCtx.clearRect(0,0,nextCanvas.width,nextCanvas.height);
+  nextCtx.fillStyle='#060610';nextCtx.fillRect(0,0,nextCanvas.width,nextCanvas.height);
   const ox=Math.floor((nextCanvas.width-s[0].length*bs)/2),oy=Math.floor((nextCanvas.height-s.length*bs)/2);
   for(let r=0;r<s.length;r++)for(let c=0;c<s[r].length;c++){if(!s[r][c])continue;nextCtx.shadowColor=next.glow;nextCtx.shadowBlur=8;nextCtx.fillStyle=next.color;nextCtx.fillRect(ox+c*bs+1,oy+r*bs+1,bs-2,bs-2);nextCtx.shadowBlur=0;}
 }
 let dropAcc=0;
-function loop(ts){
-  if(!lastTime)lastTime=ts;const dt=Math.min(ts-lastTime,50);lastTime=ts;
-  if(!paused){dropAcc+=dt;if(dropAcc>=dropInterval){dropAcc=0;if(valid(current.shape,current.x,current.y+1))current.y++;else place();}}
-  draw();animId=requestAnimationFrame(loop);
-}
+function loop(ts){if(!lastTime)lastTime=ts;const dt=Math.min(ts-lastTime,50);lastTime=ts;if(!paused){dropAcc+=dt;if(dropAcc>=dropInterval){dropAcc=0;if(valid(current.shape,current.x,current.y+1))current.y++;else place();}}draw();animId=requestAnimationFrame(loop);}
 function startGame(){
   board=createBoard();score=0;lines=0;level=1;dropInterval=800;dropAcc=0;lastTime=0;flashRows=[];paused=false;particles=[];
   current=randomPiece();next=randomPiece();gameRunning=true;
-  document.getElementById('score-display').textContent='0';document.getElementById('level-display').textContent='1';document.getElementById('lines-display').textContent='0';
+  ['score-display','level-display','lines-display'].forEach((id,i)=>document.getElementById(id).textContent=[0,1,0][i]);
   document.getElementById('start-overlay').style.display='none';document.getElementById('gameover-overlay').style.display='none';document.getElementById('pause-overlay').style.display='none';
   document.getElementById('name-section').style.display='flex';document.getElementById('name-inp').value='';
   if(animId)cancelAnimationFrame(animId);drawNext();animId=requestAnimationFrame(loop);
@@ -376,7 +326,6 @@ function endGame(){
   document.getElementById('name-section').style.display='flex';document.getElementById('gameover-overlay').style.display='flex';
 }
 function togglePause(){if(!gameRunning)return;paused=!paused;document.getElementById('pause-overlay').style.display=paused?'flex':'none';if(!paused)lastTime=0;}
-
 document.addEventListener('keydown',e=>{
   if(!gameRunning)return;
   switch(e.key){
@@ -402,19 +351,14 @@ document.getElementById('btn-rotate').addEventListener('touchstart',e=>{e.preven
 document.getElementById('btn-rotate').addEventListener('click',doRotate);
 let tx,ty;
 canvas.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
-canvas.addEventListener('touchend',e=>{
-  if(!gameRunning||paused)return;const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
-  if(Math.abs(dx)>Math.abs(dy)){if(dx>25&&valid(current.shape,current.x+1,current.y)){current.x++;sfx('move');}else if(dx<-25&&valid(current.shape,current.x-1,current.y)){current.x--;sfx('move');}
-  }else if(dy<-30)doRotate();
-},{passive:true});
+canvas.addEventListener('touchend',e=>{if(!gameRunning||paused)return;const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>Math.abs(dy)){if(dx>25&&valid(current.shape,current.x+1,current.y)){current.x++;sfx('move');}else if(dx<-25&&valid(current.shape,current.x-1,current.y)){current.x--;sfx('move');}}else if(dy<-30)doRotate();},{passive:true});
 document.getElementById('start-btn').addEventListener('click',startGame);
 document.getElementById('restart-btn').addEventListener('click',startGame);
 document.getElementById('btn-save').addEventListener('click',()=>{const n=document.getElementById('name-inp').value.trim();if(!n){document.getElementById('name-inp').focus();return;}saveScore(n,pendingScore);document.getElementById('name-section').style.display='none';});
 document.getElementById('btn-skip').addEventListener('click',()=>document.getElementById('name-section').style.display='none');
 document.getElementById('name-inp').addEventListener('keydown',e=>{if(e.key==='Enter'){const n=document.getElementById('name-inp').value.trim();if(n){saveScore(n,pendingScore);document.getElementById('name-section').style.display='none';}}});
-
 board=createBoard();draw();
-if(isMobile)document.getElementById('touch-controls').style.display='flex';
+if(isMobile)document.getElementById('bottom-controls').style.display='flex';
 </script>
 </body>
 </html>
